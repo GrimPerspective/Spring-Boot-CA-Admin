@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>Add Lecturer</title>
+</head>
+
+<body>
+<header th:insert="layout/navbar.html :: header"></header>
+
+<div class="row">
+
+<div th:insert="layout/adminSidebar.html :: adminSidebar" class="col-2"></div>
+
+  <div class="container">
+	  <div class="col-10">
+	      <h3>Add Course</h3>
+    <hr>
+
+    <form th:action="@{/manageCourses/saveCourse}"
+          th:object="${newCourse}" method="POST">
+
+<!--        <input type="hidden" th:field="*{id}" />-->
+
+<!--        <input type="hidden" th:field="*{enrollment}" />-->
+
+        Course Name: <input type="text" th:field="*{name}"
+               class="form-control mb-4 col-4" placeholder="Course Name">
+
+        Course Description: <input type="text" th:field="*{description}"
+               class="form-control mb-4 col-4" placeholder="Course Description">
+
+        Class Size: <input type="text" th:field="*{size}"
+               class="form-control mb-4 col-4" placeholder="Class Size">
+
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+	<a th:href="@{/manageCourses/list}">Back to Course List</a>
+	
+	  </div>
+	</div>
+</div>
+
+</body>
+</html>

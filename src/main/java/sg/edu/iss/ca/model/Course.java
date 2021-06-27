@@ -3,12 +3,7 @@ package sg.edu.iss.ca.model;
 import java.util.Collection;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,6 +18,7 @@ public class Course {
 	private String Name;
 	private String Description;
 	private int size;
+	@Column(columnDefinition = "integer default 0")
 	private int enrollment;
 	private int credits;
 	
