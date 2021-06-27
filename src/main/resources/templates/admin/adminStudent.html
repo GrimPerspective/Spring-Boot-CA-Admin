@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>Student Directory</title>
+</head>
+<body>
+<header th:insert="layout/layout.html :: header"></header>
+
+
+    <div class="container">
+
+        <h3>Student Directory</h3>
+        <hr>
+
+        <form th:action="@{/search}" class="form-inline">
+            <a th:href="@{/manageStudents/adminAddStudent}"
+               class="btn btn-primary btn-sm mr-5 mb-3">
+                Add Student
+            </a>
+
+<!--            <input class="form-control  ml-5 mr-sm-2 mb-3" type="search" name="employeeName" placeholder="Search by name" />-->
+
+<!--            <button class="btn btn-success mb-3" type="submit">Search</button>-->
+        </form>
+
+        <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Enrollment Date</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+
+        <tbody>
+        <tr th:each="tempstudents : ${students}">
+
+            <td th:text="${tempstudents.id}" />
+            <td th:text="${tempstudents.firstName}" />
+            <td th:text="${tempstudents.lastName}" />
+            <td th:text="${tempstudents.enrollmentDate}" />
+
+            <td>
+                <!-- Add "update" button/link -->
+                <a th:href="@{/manageStudents/adminUpdateStudent(studentId=${tempstudents.id})}"
+                   class="btn btn-info btn-sm">
+                    Update
+                </a>
+
+
+                <!-- Add "delete" button/link -->
+                <a th:href="@{/manageStudents/delete(studentid=${tempstudents.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="if (!(confirm('Are you sure you want to delete this Student?'))) return false">
+                    Delete
+                </a>
+
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+
+
+
+
+    </div>
+
+
+
+
+
+</div>
+
+</body>
+</html>

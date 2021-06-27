@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>Add Lecturer</title>
+</head>
+
+<body>
+<header th:insert="layout/layout.html :: header"></header>
+
+<div class="row">
+  <div class="col-2">
+    <div class="list-group" id="list-tab" role="tablist">
+      <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Manage Students</a>
+      <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Manage Lecturers</a>
+      <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Manage Courses</a>
+      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Manage Enrolment</a>
+      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Log Out</a>
+    </div>
+  </div>
+
+  <div class="container">
+	  <div class="col-10">
+	      <h3>Add Lecturer</h3>
+    <hr>
+
+    <form th:action="@{/manageLecturers/saveLecturer}"
+          th:object="${newLecturer}" method="POST">
+
+        First Name: <input type="text" th:field="*{firstName}"
+               class="form-control mb-4 col-4" placeholder="First name">
+
+        Last Name: <input type="text" th:field="*{lastName}"
+               class="form-control mb-4 col-4" placeholder="Last name">
+
+        Username: <input type="text" th:field="*{userName}"
+               class="form-control mb-4 col-4" placeholder="Username">
+        
+        Default Password: <input type="text" th:field="*{userPassword}"
+               class="form-control mb-4 col-4" placeholder="Default Password">
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+	<a th:href="@{/manageLecturers/list}">Back to Lecturer List</a>
+	
+	  </div>
+	</div>
+</div>
+
+</body>
+</html>

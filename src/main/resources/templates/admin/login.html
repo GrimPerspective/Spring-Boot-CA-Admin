@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>Admin Login</title>
+</head>
+<body>
+<header th:insert="layout/layout.html :: header"></header>
+
+<h1>Admin Login</h1>
+
+
+<form th:object="${admin}" th:action="@{/authenticate}" method="post">
+        <fieldset>
+			Username: <input type="text" th:field="*{userName}">
+		</fieldset>
+		<fieldset>
+			Password: <input type="password" th:field="*{userPassword}">
+		</fieldset>
+		<fieldset>
+			<button type="submit" >Log In</button>
+		</fieldset>
+		
+</form>
+
+</body>
+</html>
