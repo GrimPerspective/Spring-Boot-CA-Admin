@@ -12,19 +12,20 @@ import sg.edu.iss.ca.model.Admin;
 import sg.edu.iss.ca.service.AdminInterface;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminLoginController {
 	
 	@Autowired
 	AdminInterface aService;
 	
-	@RequestMapping(path = "/login")
+	@RequestMapping("/login")
 	public String login(Model model) {
 		Admin a = new Admin();
 		model.addAttribute("admin", a);
-		return "admin/login";
+		return "admin/adminLogin";
 	}
 	
-	@RequestMapping(path = "/authenticate")
+	@RequestMapping("/authenticate")
 	public String authenticate(@ModelAttribute("admin") Admin admin, Model model, HttpSession session) {
 		if(aService.authenticate(admin)) 
 		{
@@ -33,7 +34,7 @@ public class AdminLoginController {
 			return "admin/adminHome";
 		}
 		else
-			return "admin/login";
+			return "admin/adminLogin";
 	}
 	
 }
