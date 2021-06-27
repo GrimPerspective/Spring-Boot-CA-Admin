@@ -37,4 +37,10 @@ public class AdminLoginController {
 			return "admin/adminLogin";
 	}
 	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session)
+	{
+		session.removeAttribute("asession");
+		return "/index";
+	}
 }

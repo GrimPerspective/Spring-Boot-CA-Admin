@@ -23,7 +23,7 @@ public class AdminService implements AdminInterface {
 
 	@Override
 	public Admin findByName(String theName) {
-		return null;
+		return aRepo.findAdminByUserName(theName);
 	}
 
 
