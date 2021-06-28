@@ -40,7 +40,7 @@
 			<td th:text="${student.lastName}" />
     		<td>Grade</td>
     		<td>		                
-    		<a th:href="@{/manageEnrolment//removeStudentEnrollment(studentId=${student.id} , courseId=${course.id})}"
+    		<a th:href="@{/manageEnrolment/removeStudentEnrollment(studentId=${student.id} , courseId=${course.id})}"
 			 class="btn btn-info btn-sm">
             	Remove Student From Course
 			</a></td>
