@@ -3,6 +3,7 @@ package sg.edu.iss.ca.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sg.edu.iss.ca.model.Course;
+import sg.edu.iss.ca.model.Student;
 import sg.edu.iss.ca.repo.CourseRepository;
 
 
@@ -34,4 +35,5 @@ public class CourseService implements CourseInterface{
         Course courseToDelete = courseRepository.findCourseById(courseId);
         courseRepository.delete(courseToDelete);
     }
+
 }

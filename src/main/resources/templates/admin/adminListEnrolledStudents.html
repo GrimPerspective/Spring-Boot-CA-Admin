@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1"#>
+<meta charset="ISO-8859-1">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <title>Enrolled Students</title>
 </head>
@@ -18,7 +18,7 @@
 	      <h1>Students enrolled in <span th:text=${course.Name}>Course Name></span></h1>
 	  <hr>
     	<br>
-		  <form th:action="@{/manageEnrolment/enrollStudent}" th:object="${course}" th:method="post">
+		  <form th:action="@{/manageEnrolment/enrollStudent(courseId=${course.id})}" th:object="${course}" th:method="post">
 			  <button type="submit" class="btn btn-primary">Enroll Student</button>
 		  </form>
 	  <br>

@@ -1,5 +1,6 @@
 package sg.edu.iss.ca.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,25 +34,49 @@ public class AdminMangeEnrolmentController {
 	public String viewEnrolment(@RequestParam("courseId") int courseId, Model model) {
 		Course course = courseService.findCourseById(courseId);
         model.addAttribute("course", course);
-		return "admin/enrolledStudents";
+		return "admin/adminListEnrolledStudents";
 	}
 	
 	@RequestMapping("/enrollStudent")
-	public String enroll(Model model) {
+	public String enroll(@RequestParam("courseId") int courseId, Model model) {
+		// find all students
 		List<Student> allStudents = studentService.findAll();
 		
-//		List<Student> enrolledStudents = ;
-//		
-//		List<Student> unenrolledStudents = new List<Student>();
+		// find students enrolled in course
+		Course course = courseService.findCourseById(courseId);
+		List<Student> enrolledStudents = (List<Student>) course.getStudents();
 		
-		model.addAttribute("allStudents", allStudents);
+		// find students not enrolled in course
+		List<Student> unenrolledStudents = new ArrayList<Student>();
+		
+		for (Student student : allStudents)
+		{
+			if (!enrolledStudents.contains(student))
+			{
+				unenrolledStudents.add(student);
+			}
+		}
+		
+		model.addAttribute("unenrolledStudents", unenrolledStudents);
+		model.addAttribute("course", course);
 		return "admin/adminEnrollStudent";
 	}
 	
 	@RequestMapping("/saveEnrollStudent")
-	public String saveEnrolment(Model model) {
-		return "forward:/manageEnrolment/list";
+	public String saveEnrolment(@RequestParam("studentId") int studentId, @RequestParam("courseId") int courseId, Model model) 
+	{
+		Student studentToEnroll = studentService.findById(studentId);
+		Course courseToEnroll = courseService.findCourseById(courseId);
+		
+		List<Course> studentCourses = (List<Course>) studentToEnroll.getLearnings();
+		studentCourses.add(courseToEnroll);
+		
+		studentToEnroll.setLearnings(studentCourses);
+		
+		studentService.save(studentToEnroll);
+		
+        model.addAttribute("course", courseToEnroll);
+		return "forward:/manageEnrolment/enrolled";
 	}
-	
 	
 }

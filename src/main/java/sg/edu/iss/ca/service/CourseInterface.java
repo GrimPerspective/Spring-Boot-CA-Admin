@@ -1,6 +1,7 @@
 package sg.edu.iss.ca.service;
 
 import sg.edu.iss.ca.model.Course;
+import sg.edu.iss.ca.model.Student;
 
 import java.util.List;
 
@@ -13,6 +14,5 @@ public interface CourseInterface {
     public Course findCourseById(Integer courseId);
 
     public void deleteCourse(Integer courseId);
-
-
+    
 }

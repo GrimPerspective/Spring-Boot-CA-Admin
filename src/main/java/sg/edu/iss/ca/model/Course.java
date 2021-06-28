@@ -49,6 +49,8 @@ public class Course {
 		this.lecturers = lecturers;
 		this.grades = grades;
 	}
+	
+	
 
 
 

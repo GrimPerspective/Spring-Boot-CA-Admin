@@ -15,7 +15,7 @@
 
   <div class="container">
 	  <div class="col-10">
-	      <h1>Enroll Student(s)</h1>
+	      <h1>Enroll Student into <span th:text="${course.Name}"></span></h1>
     <hr>
     
     <form th:action="@{/manageEnrolment/saveEnrollStudent}" th:method="post">
@@ -30,20 +30,21 @@
     </tr>
     </thead>
     
-    <tr th:each="student : ${allStudents}">
+    <tr th:each="student : ${unenrolledStudents}">
  	<td th:text="${student.id}" />
 	<td th:text="${student.firstName}" />
 	<td th:text="${student.lastName}" />
     <td>
-    <input class="form-check-input" type="checkbox" value="Enroll" id="flexCheckDefault">
-    </td>
+        <a th:href="@{/manageEnrolment/saveEnrollStudent(studentId=${student.id} , courseId=${course.id})}"
+                  class="btn btn-info btn-sm">
+        Enroll Student
+		</a>    
+	</td>
     
     </tr>
     
     </table>
-    
-    <button type="submit" class="btn btn-primary">Enroll Students</button>
-    
+        
     </form>
     
     <hr>
