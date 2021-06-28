@@ -26,27 +26,14 @@
         <a class="nav-link" href="/lecturer/login">Lecturer Login</a>
       </li>
     </ul>
+    <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link"><span th:text="${session.asession != null} ? 'Hello, ' : ''"></span> 
+                <span th:text=${session?.asession?.userName}></span></a>
+            </li>
+    </ul>
   </div>
 </nav>
-
-
-<!-- <div class="row"> -->
-<!--   <div class="col-2"> -->
-<!--     <div class="list-group" id="list-tab" role="tablist"> -->
-<!--       <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Manage Students</a> -->
-<!--       <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Manage Lecturers</a> -->
-<!--       <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Manage Courses</a> -->
-<!--       <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Manage Enrolment</a> -->
-<!--       <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Log Out</a> -->
-<!--     </div> -->
-<!--   </div> -->
-
-<!--   <div class="col-10"> -->
-<!--     <p th:text=${session?.asession?.userName}><p> -->
-<!--     <p>has logged in.</p> -->
-<!--   </div> -->
-
-<!-- </div> -->
 
 </div>
 

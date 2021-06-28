@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>Enroll Student(s)</title>
+</head>
+<body>
+
+<header th:insert="layout/navbar.html :: header"></header>
+
+<div class="row">
+
+<div th:insert="layout/adminSidebar.html :: adminSidebar" class="col-2"></div>
+
+  <div class="container">
+	  <div class="col-10">
+	      <h1>Enroll Student(s)</h1>
+    <hr>
+    
+    <form th:action="@{/manageEnrolment/saveEnrollStudent}" th:method="post">
+    <table class="table table-bordered table-striped">
+    
+    <thead class="thead-dark">
+    <tr>
+   	<td>Student ID</td>
+    <td>First Name</td>
+    <td>Last Name</td>
+    <td>Enroll</td>
+    </tr>
+    </thead>
+    
+    <tr th:each="student : ${allStudents}">
+ 	<td th:text="${student.id}" />
+	<td th:text="${student.firstName}" />
+	<td th:text="${student.lastName}" />
+    <td>
+    <input class="form-check-input" type="checkbox" value="Enroll" id="flexCheckDefault">
+    </td>
+    
+    </tr>
+    
+    </table>
+    
+    <button type="submit" class="btn btn-primary">Enroll Students</button>
+    
+    </form>
+    
+    <hr>
+
+	  </div>
+	</div>
+</div>
+
+
+</body>
+</html>

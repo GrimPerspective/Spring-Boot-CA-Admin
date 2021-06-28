@@ -16,8 +16,8 @@ public class Grade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int courseID;
-	private int studentID;
+//	private int courseID;
+//	private int studentID;
 	private int grade;
 	
 	@ManyToOne
@@ -27,8 +27,8 @@ public class Grade {
 	private Student student;	
 	
 	public Grade(int courseID, int studentID, int grade) {
-		this.courseID = courseID;
-		this.studentID = studentID;
+//		this.courseID = courseID;
+//		this.studentID = studentID;
 		this.grade = grade;
 	}
 
