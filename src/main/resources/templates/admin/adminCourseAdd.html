@@ -22,9 +22,9 @@
     <form th:action="@{/manageCourses/saveCourse}"
           th:object="${newCourse}" method="POST">
 
-<!--        <input type="hidden" th:field="*{id}" />-->
+        <input type="hidden" th:field="*{id}" />
 
-<!--        <input type="hidden" th:field="*{enrollment}" />-->
+        <input type="hidden" th:field="*{enrollment}" />
 
         Course Name: <input type="text" th:field="*{name}"
                class="form-control mb-4 col-4" placeholder="Course Name">

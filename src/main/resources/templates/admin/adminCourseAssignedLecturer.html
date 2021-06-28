@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<title>Assigned Lecturer</title>
+</head>
+<body>
+
+<header th:insert="layout/navbar.html :: header"></header>
+
+<div class="row">
+
+<div th:insert="layout/adminSidebar.html :: adminSidebar" class="col-2"></div>
+
+  <div class="container">
+	  <div class="col-10">
+	      <h1>Lecturers assigned to <span th:text=${course.name}>Course Name</span></h1>
+	  <hr>
+    	<br>
+		  <form th:action="@{/manageCourses/assignLecturer(courseId=${course.id})}" th:object="${course}" th:method="post">
+			  <button type="submit" class="btn btn-primary">Assign Lecturer</button>
+		  </form>
+	  <br>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+    	<tr>
+    		<th>Lecturer ID</th>
+    		<th>First Name</th>
+    		<th>Last Name</th>
+    		<th>Action</th>
+    	</tr>
+    	</thead>
+    	
+ 	    <tr th:each="lecturer : ${course.lecturers}">
+			<td th:text="${lecturer.id}" />
+			<td th:text="${lecturer.firstName}" />
+			<td th:text="${lecturer.lastName}" />
+    		<td>		                
+    		<a th:href="@{/manageCourses/removeAssignedLecturer(lecturerId=${lecturer.id} , courseId=${course.id})}"
+			 class="btn btn-info btn-sm">
+            	Remove Assigned Lecturer From Course
+			</a></td>
+ 	    </tr>
+    	
+    </table>
+    
+    <hr>
+
+	  </div>
+	</div>
+</div>
+
+
+</body>
+</html>

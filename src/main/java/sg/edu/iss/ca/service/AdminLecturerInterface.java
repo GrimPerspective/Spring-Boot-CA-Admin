@@ -3,6 +3,7 @@ package sg.edu.iss.ca.service;
 import java.util.List;
 
 import sg.edu.iss.ca.model.Lecturer;
+import sg.edu.iss.ca.model.Student;
 
 public interface AdminLecturerInterface {
 	
@@ -13,5 +14,7 @@ public interface AdminLecturerInterface {
 	 public Lecturer findLecturerById(Integer lecturerId);
 	 
 	 public void deleteLecturer(Integer lecturerId);
+
+	 public void save(Lecturer theLecturer);
 
 }

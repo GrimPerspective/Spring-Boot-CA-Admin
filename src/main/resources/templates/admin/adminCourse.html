@@ -29,8 +29,9 @@
 	            <th>Course Name</th>
 	            <th>Course Description</th>
 	            <th>Maximum Class Size</th>
-				<th>Enrolled</th>
+<!--				<th>Enrolled</th>-->
 	            <th>Action</th>
+				<th></th>
 	        </tr>
 	        </thead>
 	
@@ -41,21 +42,28 @@
 	            <td th:text="${course.name}" />
 	            <td th:text="${course.description}" />
 	            <td th:text="${course.size}" />
-				<td th:text="${#lists.size(course.students)}" />
+<!--				<td th:text="${#lists.size(course.students)}" />-->
 
 	            <td>
                 <a th:href="@{/manageCourses/updateCourse(courseId=${course.id})}"
-	                   class="btn btn-info btn-sm">
+	                   class="btn btn-info btn-sm btn-block">
 	                   Update
 				</a>
 	            
 	            <a th:href="@{/manageCourses/deleteCourse(courseId=${course.id})}"
-	                   class="btn btn-danger btn-sm"
+	                   class="btn btn-danger btn-sm btn-block"
                    	   onclick="if (!(confirm('Are you sure you want to delete this Course?'))) return false">
 	                   Delete
 				</a>
-				
+
 	            </td>
+
+				<td>
+				<a th:href="@{/manageCourses/assigned(courseId=${course.id})}"
+				   class="btn btn-success btn-sm">
+					Manage Lecturers
+				</a>
+				</td>
 	        </tr>
 	        </tbody>
 	    </table>

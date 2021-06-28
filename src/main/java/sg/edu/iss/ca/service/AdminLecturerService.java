@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.iss.ca.model.Lecturer;
+import sg.edu.iss.ca.model.Student;
 import sg.edu.iss.ca.repo.LecturerRepository;
 
 @Service
@@ -38,7 +39,13 @@ public class AdminLecturerService implements AdminLecturerInterface {
 		lRepo.delete(lecturerToDelete);
 		return;
 	}
-	
-	
-	
+
+	@Override
+	public void save(Lecturer theLecturer)
+		{
+			lRepo.save(theLecturer);
+		}
+
+
+
 }

@@ -5,7 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import sg.edu.iss.ca.model.Course;
+import sg.edu.iss.ca.model.Lecturer;
+import sg.edu.iss.ca.model.Student;
+import sg.edu.iss.ca.service.AdminLecturerInterface;
 import sg.edu.iss.ca.service.CourseInterface;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/manageCourses")
@@ -13,6 +19,9 @@ public class AdminManageCoursesController {
 
     @Autowired
     CourseInterface courseService;
+
+    @Autowired
+    AdminLecturerInterface adminLecturerInterface;
 
     @RequestMapping("/list")
     public String list(Model model){
@@ -49,5 +58,68 @@ public class AdminManageCoursesController {
         return "redirect:/manageCourses/list";
     }
 
+    @RequestMapping("/assigned")
+    public String viewAssigned(@RequestParam("courseId") int courseId, Model model) {
+        Course course = courseService.findCourseById(courseId);
+        model.addAttribute("course", course);
+        return "admin/adminCourseAssignedLecturer";
+    }
+
+    @RequestMapping("/assignLecturer")
+    public String enroll(@RequestParam("courseId") int courseId, Model model) {
+        // find all lecturers
+        List<Lecturer> allLecturers = adminLecturerInterface.findALlLecturers();
+
+        // find lecturers assigned to course
+        Course course = courseService.findCourseById(courseId);
+        List<Lecturer> assignedLecturers = (List<Lecturer>) course.getLecturers();
+
+        // find lecturers not assigned to course
+        List<Lecturer> unassignedLecturers = new ArrayList<Lecturer>();
+
+        for (Lecturer lecturer : allLecturers)
+        {
+            if (!assignedLecturers.contains(lecturer))
+            {
+                unassignedLecturers.add(lecturer);
+            }
+        }
+        model.addAttribute("unassignedLecturers", unassignedLecturers);
+        model.addAttribute("course", course);
+        return "admin/adminCourseAssignLecturer";
+    }
+
+    @RequestMapping("/saveAssignLecturer")
+    public String saveAssignment(@RequestParam("lecturerId") int lecturerId, @RequestParam("courseId") int courseId, Model model)
+    {
+        Lecturer lecturerToAssign = adminLecturerInterface.findLecturerById(lecturerId);
+        Course courseToAssign = courseService.findCourseById(courseId);
+
+        List<Course> lecturerCourses = (List<Course>) lecturerToAssign.getTeachings();
+        lecturerCourses.add(courseToAssign);
+
+        lecturerToAssign.setTeachings(lecturerCourses);
+
+        adminLecturerInterface.save(lecturerToAssign);
+
+        model.addAttribute("course", courseToAssign);
+        return "forward:/manageCourses/assigned";
+    }
+
+    @RequestMapping("/removeAssignedLecturer")
+    public String removeAssignedLecturer(@RequestParam("lecturerId") int lecturerId, @RequestParam("courseId") int courseId, Model model)
+    {
+        Lecturer lecturerToRemove = adminLecturerInterface.findLecturerById(lecturerId);
+        Course courseToRemoveFrom = courseService.findCourseById(courseId);
+
+        List<Course> lecturerCourses = (List<Course>) lecturerToRemove.getTeachings();
+        lecturerCourses.remove(courseToRemoveFrom);
+        lecturerToRemove.setTeachings(lecturerCourses);
+
+        adminLecturerInterface.save(lecturerToRemove);
+
+        model.addAttribute("course", courseToRemoveFrom);
+        return "forward:/manageCourses/assigned";
+    }
 
 }
