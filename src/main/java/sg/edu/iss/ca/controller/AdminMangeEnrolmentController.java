@@ -79,4 +79,20 @@ public class AdminMangeEnrolmentController {
 		return "forward:/manageEnrolment/enrolled";
 	}
 	
+	@RequestMapping("/removeStudentEnrollment")
+	public String removeStudentEnrollment(@RequestParam("studentId") int studentId, @RequestParam("courseId") int courseId, Model model) 
+	{
+		Student studentToRemove = studentService.findById(studentId);
+		Course courseToRemoveFrom = courseService.findCourseById(courseId);
+		
+		List<Course> studentCourses = (List<Course>) studentToRemove.getLearnings();
+		studentCourses.remove(courseToRemoveFrom);		
+		studentToRemove.setLearnings(studentCourses);
+		
+		studentService.save(studentToRemove);
+		
+        model.addAttribute("course", courseToRemoveFrom);
+		return "forward:/manageEnrolment/enrolled";
+	}
+	
 }
