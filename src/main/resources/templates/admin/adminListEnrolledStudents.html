@@ -18,9 +18,10 @@
 	      <h1>Students enrolled in <span th:text=${course.Name}>Course Name></span></h1>
 	  <hr>
     	<br>
-		  <form th:action="@{/manageEnrolment/enrollStudent(courseId=${course.id})}" th:object="${course}" th:method="post">
+		  <form th:if="${#lists.size(course.students) < course.size}" th:action="@{/manageEnrolment/enrollStudent(courseId=${course.id})}" th:object="${course}" th:method="post">
 			  <button type="submit" class="btn btn-primary">Enroll Student</button>
 		  </form>
+		  <h3 th:if="${#lists.size(course.students) >= course.size}"> ***Class is full*** </h3>
 	  <br>
     <table class="table table-bordered table-striped">
         <thead class="thead-dark">
