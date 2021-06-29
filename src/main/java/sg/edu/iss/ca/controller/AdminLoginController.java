@@ -43,4 +43,5 @@ public class AdminLoginController {
 		session.removeAttribute("asession");
 		return "/index";
 	}
+
 }

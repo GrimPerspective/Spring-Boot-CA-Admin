@@ -14,6 +14,8 @@ import sg.edu.iss.ca.service.StudentInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/manageCourses")
 public class AdminManageCoursesController {
@@ -28,7 +30,11 @@ public class AdminManageCoursesController {
     StudentInterface studentService;
 
     @RequestMapping("/list")
-    public String list(Model model){
+    public String list(Model model, HttpSession session)
+    {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
         model.addAttribute("courses", courseService.findAllCourses());
         return "admin/adminCourse";
     }
