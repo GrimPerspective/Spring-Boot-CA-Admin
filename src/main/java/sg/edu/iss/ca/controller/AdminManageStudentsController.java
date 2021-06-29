@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sg.edu.iss.ca.model.Student;
 import sg.edu.iss.ca.service.StudentService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,10 @@ public class AdminManageStudentsController {
     }
 
     @GetMapping("/adminStudent")
-    public String listStudent(Model theModel){
+    public String listStudent(Model theModel, HttpSession session){
+        if (session.getAttribute("asession") == null) {
+            return "forward:/admin/login";
+        }
         List<Student> theStudents = studentService.findAll();
 
         theModel.addAttribute("students", theStudents);
@@ -29,7 +33,10 @@ public class AdminManageStudentsController {
     }
 
     @GetMapping("/adminAddStudent")
-    public String adminFormAddStudent(Model theModel){
+    public String adminFormAddStudent(Model theModel, HttpSession session){
+        if (session.getAttribute("asession") == null) {
+            return "forward:/admin/login";
+        }
         Student theStudent = new Student();
 
         theModel.addAttribute("student", theStudent);
@@ -38,7 +45,10 @@ public class AdminManageStudentsController {
     }
 
     @GetMapping("/adminUpdateStudent")
-    public String adminFormUpdateStudent(@RequestParam("studentId") int id, Model theModel){
+    public String adminFormUpdateStudent(@RequestParam("studentId") int id, Model theModel, HttpSession session){
+        if (session.getAttribute("asession") == null) {
+            return "forward:/admin/login";
+        }
         Student theStudent = studentService.findById(id);
 
         theModel.addAttribute("student", theStudent);
@@ -48,7 +58,10 @@ public class AdminManageStudentsController {
 
 
     @PostMapping("/save")
-    public String adminSaveStudent(@ModelAttribute("student") Student theStudent){
+    public String adminSaveStudent(@ModelAttribute("student") Student theStudent, HttpSession session){
+        if (session.getAttribute("asession") == null) {
+            return "forward:/admin/login";
+        }
         studentService.save(theStudent);
         //prevent multiple submission redirect user to adminstudent again
         return "redirect:/manageStudents/adminStudent";
@@ -56,14 +69,20 @@ public class AdminManageStudentsController {
 
 
     @GetMapping("/delete")
-    public String delete(@RequestParam("studentid") int id){
+    public String delete(@RequestParam("studentid") int id, HttpSession session){
+        if (session.getAttribute("asession") == null) {
+            return "forward:/admin/login";
+        }
         studentService.deleteById(id);
         return "redirect:/manageStudents/adminStudent";
     }
 
     @GetMapping("/search")
     public String delete(@RequestParam("studentUser") String theUser,
-                         Model theModel) {
+                         Model theModel, HttpSession session) {
+        if (session.getAttribute("asession") == null) {
+            return "forward:/admin/login";
+        }
 
         List<Student> theStudents = studentService.searchBy(theUser);
 

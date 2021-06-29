@@ -14,6 +14,8 @@ import sg.edu.iss.ca.model.Student;
 import sg.edu.iss.ca.service.CourseInterface;
 import sg.edu.iss.ca.service.StudentInterface;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/manageEnrolment")
 public class AdminMangeEnrolmentController {
@@ -25,20 +27,29 @@ public class AdminMangeEnrolmentController {
 	StudentInterface studentService;
 	
 	@RequestMapping("/list")
-	public String list(Model model) {
+	public String list(Model model, HttpSession session) {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
         model.addAttribute("courses", courseService.findAllCourses());
 		return "admin/adminEnrolment";
 	}
 	
 	@RequestMapping("/enrolled")
-	public String viewEnrolment(@RequestParam("courseId") int courseId, Model model) {
+	public String viewEnrolment(@RequestParam("courseId") int courseId, Model model, HttpSession session) {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
 		Course course = courseService.findCourseById(courseId);
         model.addAttribute("course", course);
 		return "admin/adminListEnrolledStudents";
 	}
 	
 	@RequestMapping("/enrollStudent")
-	public String enroll(@RequestParam("courseId") int courseId, Model model) {
+	public String enroll(@RequestParam("courseId") int courseId, Model model, HttpSession session) {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
 		// find all students
 		List<Student> allStudents = studentService.findAll();
 		
@@ -63,8 +74,11 @@ public class AdminMangeEnrolmentController {
 	}
 	
 	@RequestMapping("/saveEnrollStudent")
-	public String saveEnrolment(@RequestParam("studentId") int studentId, @RequestParam("courseId") int courseId, Model model) 
+	public String saveEnrolment(@RequestParam("studentId") int studentId, @RequestParam("courseId") int courseId, Model model, HttpSession session)
 	{
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
 		Student studentToEnroll = studentService.findById(studentId);
 		Course courseToEnroll = courseService.findCourseById(courseId);
 		
@@ -80,8 +94,11 @@ public class AdminMangeEnrolmentController {
 	}
 	
 	@RequestMapping("/removeStudentEnrollment")
-	public String removeStudentEnrollment(@RequestParam("studentId") int studentId, @RequestParam("courseId") int courseId, Model model) 
+	public String removeStudentEnrollment(@RequestParam("studentId") int studentId, @RequestParam("courseId") int courseId, Model model, HttpSession session)
 	{
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
 		Student studentToRemove = studentService.findById(studentId);
 		Course courseToRemoveFrom = courseService.findCourseById(courseId);
 		
