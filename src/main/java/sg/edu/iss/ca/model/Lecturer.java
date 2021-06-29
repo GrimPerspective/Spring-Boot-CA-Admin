@@ -25,7 +25,7 @@ public class Lecturer {
 	private String firstName;
 	private String lastName;
 	private int userType;
-	private String titel;
+	private String title;
 	
 	@ManyToMany
 	@JoinTable(name="lecturer_course",
@@ -33,27 +33,26 @@ public class Lecturer {
 	inverseJoinColumns = @JoinColumn(name="course_id"))
 	private Collection<Course> teachings;
 	
-	public Lecturer(String userName, String userPassword, String firstName, String lastName, int userType, String titel,
+	public Lecturer(String userName, String userPassword, String firstName, String lastName, int userType, String title,
 			Collection<Course> teachings) {
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userType = userType;
-		this.titel = titel;
+		this.title = title;
 		this.teachings = teachings;
 	}
 
 	public Lecturer(String userName, String userPassword, String firstName, String lastName, int userType,
-			String titel) {
+			String title) {
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.userType = userType;
-		this.titel = titel;
+		this.title = title;
 	}
-	
 	
 
 }
