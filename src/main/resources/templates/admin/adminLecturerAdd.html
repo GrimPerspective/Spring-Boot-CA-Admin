@@ -31,7 +31,7 @@
         Username: <input type="text" th:field="*{userName}"
                class="form-control mb-4 col-4" placeholder="Username">
         
-        <div th:if="${edit} == null">
+        <div th:if="${update} == null">
         Default Password: <input type="text" th:field="*{userPassword}"
                class="form-control mb-4 col-4" placeholder="Default Password">
 		</div>

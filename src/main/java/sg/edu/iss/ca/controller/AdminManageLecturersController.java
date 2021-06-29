@@ -44,7 +44,7 @@ public class AdminManageLecturersController {
 	public String editForm(@RequestParam("lecturerId") int lecturerId, Model model) {
         Lecturer updateLecturer = alService.findLecturerById(lecturerId);
         model.addAttribute("newLecturer", updateLecturer);
-        model.addAttribute("edit", true);
+        model.addAttribute("update", true);
 		return "admin/adminLecturerAdd";
 	}
 	

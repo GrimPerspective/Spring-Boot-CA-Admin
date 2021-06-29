@@ -42,7 +42,7 @@ public class AdminManageStudentsController {
         Student theStudent = studentService.findById(id);
 
         theModel.addAttribute("student", theStudent);
-
+        theModel.addAttribute("update", true);
         return "/admin/adminStudentAdd";
     }
 
