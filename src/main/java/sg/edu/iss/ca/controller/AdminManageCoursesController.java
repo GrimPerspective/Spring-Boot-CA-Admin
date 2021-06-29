@@ -35,27 +35,40 @@ public class AdminManageCoursesController {
 		if (session.getAttribute("asession") == null) {
 			return "forward:/admin/login";
 		}
+		
         model.addAttribute("courses", courseService.findAllCourses());
         return "admin/adminCourse";
     }
 
     @PostMapping("/addCourse")
-    public String addUser(Model model)
+    public String addUser(Model model, HttpSession session)
     {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
+		
         Course newCourse = new Course();
         model.addAttribute("newCourse", newCourse);
         return "admin/adminCourseAdd";
     }
 
     @PostMapping("/saveCourse")
-    public String saveCourse(@ModelAttribute("newCourse") Course newCourse)
+    public String saveCourse(@ModelAttribute("newCourse") Course newCourse, HttpSession session)
     {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
+		
         courseService.createCourseRecord(newCourse);
         return "forward:/manageCourses/list";
     }
 
     @RequestMapping("/updateCourse")
-    public String editForm(@RequestParam("courseId") int courseId, Model model) {
+    public String editForm(@RequestParam("courseId") int courseId, Model model, HttpSession session) {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
+		
         Course theCourse = courseService.findCourseById(courseId);
         model.addAttribute("newCourse", theCourse);
 
@@ -63,7 +76,11 @@ public class AdminManageCoursesController {
     }
 
     @GetMapping("/deleteCourse")
-    public String delete(@RequestParam("courseId") int courseId){
+    public String delete(@RequestParam("courseId") int courseId, HttpSession session){
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
+		
     	Course courseToDelete = courseService.findCourseById(courseId);
     	
     	// If add cascade, can remove this section of code
@@ -93,14 +110,20 @@ public class AdminManageCoursesController {
     }
 
     @RequestMapping("/assigned")
-    public String viewAssigned(@RequestParam("courseId") int courseId, Model model) {
+    public String viewAssigned(@RequestParam("courseId") int courseId, Model model, HttpSession session) {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
         Course course = courseService.findCourseById(courseId);
         model.addAttribute("course", course);
         return "admin/adminCourseAssignedLecturer";
     }
 
     @RequestMapping("/assignLecturer")
-    public String enroll(@RequestParam("courseId") int courseId, Model model) {
+    public String enroll(@RequestParam("courseId") int courseId, Model model, HttpSession session) {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
         // find all lecturers
         List<Lecturer> allLecturers = adminLecturerInterface.findALlLecturers();
 
@@ -124,8 +147,12 @@ public class AdminManageCoursesController {
     }
 
     @RequestMapping("/saveAssignLecturer")
-    public String saveAssignment(@RequestParam("lecturerId") int lecturerId, @RequestParam("courseId") int courseId, Model model)
+    public String saveAssignment(@RequestParam("lecturerId") int lecturerId, @RequestParam("courseId") int courseId, Model model, HttpSession session)
     {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
+		
         Lecturer lecturerToAssign = adminLecturerInterface.findLecturerById(lecturerId);
         Course courseToAssign = courseService.findCourseById(courseId);
 
@@ -141,8 +168,12 @@ public class AdminManageCoursesController {
     }
 
     @RequestMapping("/removeAssignedLecturer")
-    public String removeAssignedLecturer(@RequestParam("lecturerId") int lecturerId, @RequestParam("courseId") int courseId, Model model)
+    public String removeAssignedLecturer(@RequestParam("lecturerId") int lecturerId, @RequestParam("courseId") int courseId, Model model, HttpSession session)
     {
+		if (session.getAttribute("asession") == null) {
+			return "forward:/admin/login";
+		}
+		
         Lecturer lecturerToRemove = adminLecturerInterface.findLecturerById(lecturerId);
         Course courseToRemoveFrom = courseService.findCourseById(courseId);
 
