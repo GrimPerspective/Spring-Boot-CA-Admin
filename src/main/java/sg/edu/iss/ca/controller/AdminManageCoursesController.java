@@ -9,6 +9,7 @@ import sg.edu.iss.ca.model.Lecturer;
 import sg.edu.iss.ca.model.Student;
 import sg.edu.iss.ca.service.AdminLecturerInterface;
 import sg.edu.iss.ca.service.CourseInterface;
+import sg.edu.iss.ca.service.StudentInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,9 @@ public class AdminManageCoursesController {
 
     @Autowired
     AdminLecturerInterface adminLecturerInterface;
+    
+    @Autowired
+    StudentInterface studentService;
 
     @RequestMapping("/list")
     public String list(Model model){
@@ -54,6 +58,30 @@ public class AdminManageCoursesController {
 
     @GetMapping("/deleteCourse")
     public String delete(@RequestParam("courseId") int courseId){
+    	Course courseToDelete = courseService.findCourseById(courseId);
+    	
+    	// If add cascade, can remove this section of code
+    	// Need to change model class if adding cascade
+    	List<Lecturer> lecturers = (List<Lecturer>) courseToDelete.getLecturers();
+    	for (Lecturer lecturer :lecturers)
+    	{
+    		List<Course> courses = (List<Course>) lecturer.getTeachings();
+    		courses.remove(courseToDelete);
+    		lecturer.setTeachings(courses);
+    		adminLecturerInterface.save(lecturer);
+    	}
+    	
+    	// If add cascade, can remove this section of code
+    	// Need to change model class if adding cascade
+    	List<Student> students = (List<Student>) courseToDelete.getStudents();
+    	for (Student student : students)
+    	{
+    		List<Course> learnings = (List<Course>) student.getLearnings();
+    		learnings.remove(courseToDelete);
+    		student.setLearnings(learnings);
+    		studentService.save(student);
+    	}
+    	
         courseService.deleteCourse(courseId);
         return "redirect:/manageCourses/list";
     }

@@ -30,12 +30,12 @@
 	            <th>Credits</th>
 	            <th>Course Description</th>
 	            <th>Maximum Class Size</th>
-<!--				<th>Enrolled</th>-->
+<!-- 				<th>Enrolled</th> -->
 	            <th>Action</th>
 				<th></th>
 	        </tr>
 	        </thead>
-	
+
 	        <tbody>
 	        <tr th:each="course : ${courses}">
 	
@@ -44,7 +44,7 @@
 	            <td th:text="${course.credits}" />
 	            <td th:text="${course.description}" />
 	            <td th:text="${course.size}" />
-<!--				<td th:text="${#lists.size(course.students)}" />-->
+<!-- 				<td th:text="${#lists.size(course?.students)}" /> -->
 
 	            <td>
                 <a th:href="@{/manageCourses/updateCourse(courseId=${course.id})}"
