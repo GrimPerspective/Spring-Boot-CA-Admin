@@ -21,7 +21,10 @@
 
     <form th:action="@{/manageLecturers/saveLecturer}"
           th:object="${newLecturer}" method="POST">
-
+          
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id}" />
+        
         First Name: <input type="text" th:field="*{firstName}"
                class="form-control mb-4 col-4" placeholder="First name">
                
