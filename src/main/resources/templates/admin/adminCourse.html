@@ -27,6 +27,7 @@
 	        <tr>
 	            <th>Course ID</th>
 	            <th>Course Name</th>
+	            <th>Credits</th>
 	            <th>Course Description</th>
 	            <th>Maximum Class Size</th>
 <!--				<th>Enrolled</th>-->
@@ -40,6 +41,7 @@
 	
 	            <td th:text="${course.id}" />
 	            <td th:text="${course.name}" />
+	            <td th:text="${course.credits}" />
 	            <td th:text="${course.description}" />
 	            <td th:text="${course.size}" />
 <!--				<td th:text="${#lists.size(course.students)}" />-->
